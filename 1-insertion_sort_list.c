@@ -7,12 +7,13 @@
  */
 void insertion_sort_list(listint_t **list)
 {
-	listint_t *head = *list;
+	listint_t *head;
 	int i = 0, j;
 	listint_t *back;
 
 	if (*list == NULL || list == NULL)
 		return;
+	head = *list;
 	while (head->next != NULL)
 	{
 		if (head->n > head->next->n)
@@ -40,7 +41,7 @@ listint_t *swap(listint_t *head, listint_t **list)
 {
 	listint_t *tmp, *node1, *node2;
 	listint_t *back = head;
-	
+
 	tmp = back->prev;
 	node1 = back;
 	node2 = back->next;
