@@ -31,7 +31,8 @@ void selection_sort(int *array, size_t size)
 			array[i - 1] = pos;
 			print_array(array, size);
 		}
-		index = 0;		i++;
+		index = 0;
+		i++;
 		if (i - 1 == size)
 			i = 0;
 	}
