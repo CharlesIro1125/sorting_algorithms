@@ -1,70 +1,73 @@
 #include "sort.h"
+
 /**
- * quick_sort - takes an array and applies
- * quick sort
- * @array: a pointer to the array
- * @size: the size of the array
- * Return: return void
+ * quick_sort - function that sorts an array of integers
+ *              in ascending order using the Quick sort algorithm
+ * @array: array
+ * @size: array's size
+ * Return: void
  */
 void quick_sort(int *array, size_t size)
 {
-	int val, pos, mtr, master = 0, to_right = 1;
-	size_t i = 1, index, j;
-	int s = size;
-
 	if (array == NULL || size < 2)
 		return;
 
-	index = s - 1;
+	quick_s(array, 0, size - 1, size);
+}
 
-	while (i)
+/**
+ * partition - partition
+ * @array: array
+ * @lo: lower
+ * @hi: higher
+ * @size: array's size
+ * Return: i
+ */
+int partition(int *array, int lo, int hi, size_t size)
+{
+	int i = lo - 1, j = lo;
+	int pivot = array[hi], aux = 0;
+
+	for (; j < hi; j++)
 	{
-		pos = array[master];
-		for (j = 0; j < size; j++)
+		if (array[j] < pivot)
 		{
-			if (to_right)
+			i++;
+			if (array[i] != array[j])
 			{
-				if (pos > array[index])
-				{
-					val = array[index];
-					array[index] = pos;
-					array[master] = val;
-					mtr = master;
-					master = index;
-					to_right = 0;
-					index = mtr + 1;
-					if (mtr + 1 == master)
-						break;
-					print_array(array, size);
-				}
-				else
-					index--;
-			}
-			else
-			{
-				if (pos < array[index])
-				{
-					val = array[index];
-					array[index] = pos;
-					array[master] = val;
-					mtr = master;
-					master = index;
-					to_right = 1;
-					index = mtr - 1;
-					if (mtr - 1 == master)
-						break;
-					print_array(array, size);
-				}
-				else
-					index++;
+				aux = array[i];
+				array[i] = array[j];
+				array[j] = aux;
+				print_array(array, size);
 			}
 		}
-		if (master > 1)
-		{
-			quick_sort(array, master);
-			if (master < s - 2)
-				quick_sort(array + (master + 1), s - (master + 1));
-		}
-		i = 0;
+	}
+	if (array[i + 1] != array[hi])
+	{
+		aux = array[i + 1];
+		array[i + 1] = array[hi];
+		array[hi] = aux;
+		print_array(array, size);
+	}
+	return (i + 1);
+}
+
+/**
+ * quick_s - quick sort
+ * @array: given array
+ * @lo: lower
+ * @hi:higher
+ * @size: array's size
+ * Return: void
+ */
+void quick_s(int *array, int lo, int hi, size_t size)
+{
+	int pivot;
+
+	if (lo < hi)
+	{
+		pivot = partition(array, lo, hi, size);
+		quick_s(array, lo, pivot - 1, size);
+		quick_s(array, pivot + 1, hi, size);
 	}
 }
